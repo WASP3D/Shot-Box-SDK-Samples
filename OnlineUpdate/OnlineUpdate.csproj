@@ -60,6 +60,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Resources\BeeSys.Wasp.Communicator.dll</HintPath>
     </Reference>
+    <Reference Include="BeeSys.Wasp.IWaspModule, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Resources\BeeSys.Wasp.IWaspModule.dll</HintPath>
+    </Reference>
+    <Reference Include="BeeSys.Wasp.IWaspPlayers">
+      <HintPath>..\Resources\BeeSys.Wasp.IWaspPlayers.dll</HintPath>
+    </Reference>
     <Reference Include="Beesys.Wasp.IWaspSceneReader, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Resources\Beesys.Wasp.IWaspSceneReader.dll</HintPath>
@@ -78,9 +85,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files\Beehive Systems Ltd\WASP3D\Common\Shared Resources\Beesys.Wasp.ShotBoxManager.dll</HintPath>
     </Reference>
+    <Reference Include="BeeSys.Wasp.WaspModuleHelper, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Resources\BeeSys.Wasp.WaspModuleHelper.dll</HintPath>
+    </Reference>
     <Reference Include="Beesys.Wasp.Workflow.CommunicationHandler, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Resources\Beesys.Wasp.Workflow.CommunicationHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="BeeSys.Wasp3D.DesignForms2">
+      <HintPath>..\Resources\BeeSys.Wasp3D.DesignForms2.dll</HintPath>
     </Reference>
     <Reference Include="GeneralTasks, Version=3.0.0.0, Culture=neutral, PublicKeyToken=97f06817abd0bb0a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -91,9 +105,16 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\Resources\Interop.MSMQ.dll</HintPath>
     </Reference>
+    <Reference Include="Interop.WaspCNGCryptoLE">
+      <HintPath>..\Resources\Interop.WaspCNGCryptoLE.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="IWaspWorkFlow, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Resources\IWaspWorkFlow.dll</HintPath>
+    </Reference>
+    <Reference Include="Player Manager">
+      <HintPath>..\Resources\Player Manager.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -114,6 +135,9 @@
     </Reference>
     <Reference Include="Xceed.Zip">
       <HintPath>..\Resources\Xceed.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="XmlDiffPatch">
+      <HintPath>..\Resources\XmlDiffPatch.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
