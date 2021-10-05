@@ -28,6 +28,7 @@ namespace OnlineUpdate
         private Link m_objLink = null;
         private LinkManager m_objLinkManager = null;
         private string m_sServerIp = string.Empty;
+        private string kcurl;
         private string m_sLinkType = string.Empty;
         private string m_sPort = string.Empty;
         bool m_bIsPause = false;
@@ -64,22 +65,21 @@ namespace OnlineUpdate
         /// <param name="e"></param>
         private void btnConnect_Click_1(object sender, EventArgs e)
         {
+            IPlayoutServerX playoutServer = null;
+
             try
             {
-                if ((Equals(m_objShotBox, null) && !string.IsNullOrEmpty(txtServerIp.Text)))
-                {
-                    switch (m_sLinkType.ToLower())
-                    {
-                        case "namedpipe":
-                            m_sServerIp = string.Format("net.pipe://{0}/WcfNamedPipeLink", txtServerIp.Text);
-                            break;
-                        default:
-                            m_sServerIp = string.Format(m_sUrl, txtServerIp.Text, m_sPort);
-                            break;
-                    }
-                    m_objLink.Connect(m_sServerIp);
-                }
+                if (cmbxServers.SelectedItem != null && cmbxServers.SelectedItem is IPlayoutServerX)
+                    playoutServer = cmbxServers.SelectedItem as IPlayoutServerX;
 
+                if (playoutServer != null && (Equals(m_objShotBox, null)))
+                {
+                    m_sServerIp = ((IPlayoutServer)playoutServer).GetUrl(m_sLinkType.ToLower());
+
+                    if (string.IsNullOrEmpty(m_sServerIp))
+                        m_sServerIp = playoutServer.GetPrepareUrl(m_sLinkType.ToLower());
+                    m_objLink.Connect(m_sServerIp, (playoutServer as CPlayoutServer).ChannelName);
+                }
             }
             catch (Exception ex)
             {
@@ -161,7 +161,7 @@ namespace OnlineUpdate
         {
             try
             {
-                fileDialog.Filter = "wsl files|*.wsl";
+                fileDialog.Filter = "wsl files|*.wsl|wspx files|*.wspx";
                 fileDialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 if (Equals(fileDialog.ShowDialog(), DialogResult.OK))
                 {
@@ -375,11 +375,10 @@ namespace OnlineUpdate
             string sLinkID = string.Empty;
             try
             {
-                txtServerIp.Text = ConfigurationManager.AppSettings["ipconfig"].ToString();
                 m_sPort = ConfigurationManager.AppSettings["port"].ToString();
-
                 m_sLinkType = ConfigurationManager.AppSettings["linktype"].ToString();
-                m_objLinkManager = new LinkManager();
+                kcurl = ConfigurationManager.AppSettings["REMOTEMANAGERURL"].ToString();
+                m_objLinkManager = new LinkManager(kcurl);
                 if (!Equals(m_objLinkManager, null))
                 {
                     if (string.Compare(m_sLinkType, "TCP", StringComparison.OrdinalIgnoreCase) == 0)
@@ -392,23 +391,40 @@ namespace OnlineUpdate
                     m_objLink.OnEngineConnected += new EventHandler<EngineArgs>(objLink_OnEngineConnected);
                 }
                 this.FormClosing += new FormClosingEventHandler(frmOnline_FormClosing);
+                Init();
             }
             catch (Exception ex)
             {
                 LogWriter.WriteLog("loading", ex.Message);
             }
         }
-
+        private void Init()
+        {
+            try
+            {
+                RefreshServersList();
+            }
+            catch (Exception ex)
+            {
+                LogWriter.WriteLog(ex);
+            }
+        }
         void frmOnline_FormClosing(object sender, FormClosingEventArgs e)
         {
             try
             {
+
                 if (!Equals(m_objShotBox, null))
                 {
+                    //Removing the loaded scene from server
                     m_objShotBox.DeleteSg();
                 }
                 if (!Equals(m_objLink, null))
                 {
+                    //Remove the old scenes which were in use a long time ago.                   
+                    DeleteUnusedSG();
+
+                    //Disconnect and Remove the communication channel with all Engines connected using this link.
                     m_objLink.DisconnectAll();
                 }
 
@@ -418,6 +434,47 @@ namespace OnlineUpdate
                 LogWriter.WriteLog("error in form closing", ex.Message);
             }
         }
+        /// <summary>
+        /// Remove the old scenes which were in use a long time ago.        
+        /// </summary>
+        private void DeleteUnusedSG()
+        {
+            try
+            {
+                //Generally removes scenes which are unused and were last in use 60 seconds ago.
+                //This can be configured in ChannelInfo.xml.
+                //<timer del_unused_duration = "60" />
+                //present in \\WASP3D\Common\HostedAssemblies\LinkCommandManager
+                m_objLink.RemoveUnusedSG(m_sServerIp);
 
+            }
+            catch
+            {
+
+            }
+        }
+        /// <summary>
+        /// Refresh list of sting servers
+        /// </summary>
+        private void RefreshServersList()
+        {
+            try
+            {
+                //Gets the list of engines i.e, Sting servers available on KC
+                List<CPlayoutServer> lstmodules = Util.GetActiveServers();
+
+                cmbxServers.DataSource = null;
+                cmbxServers.DataSource = lstmodules;
+                cmbxServers.DisplayMember = "EngineName";
+            }
+            catch (Exception ex)
+            {
+                LogWriter.WriteLog(ex);
+            }
+            finally
+            {
+
+            }
+        }
     }
 }

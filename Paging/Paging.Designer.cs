@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblServerIP = new System.Windows.Forms.Label();
+            this.lblServer = new System.Windows.Forms.Label();
             this.lblTextFile = new System.Windows.Forms.Label();
             this.lblSceneGraph = new System.Windows.Forms.Label();
             this.lblPlayText = new System.Windows.Forms.Label();
-            this.txtServerIp = new System.Windows.Forms.TextBox();
+            this.cmbxServers = new System.Windows.Forms.ComboBox();
             this.txtTextFile = new System.Windows.Forms.TextBox();
             this.txtSceneGraph = new System.Windows.Forms.TextBox();
             this.cbPlayText = new System.Windows.Forms.CheckBox();
@@ -66,14 +66,14 @@
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // lblServerIP
+            // lblServer
             // 
-            this.lblServerIP.AutoSize = true;
-            this.lblServerIP.Location = new System.Drawing.Point(4, 3);
-            this.lblServerIP.Name = "lblServerIP";
-            this.lblServerIP.Size = new System.Drawing.Size(48, 13);
-            this.lblServerIP.TabIndex = 0;
-            this.lblServerIP.Text = "ServerIP";
+            this.lblServer.AutoSize = true;
+            this.lblServer.Location = new System.Drawing.Point(4, 3);
+            this.lblServer.Name = "lblServer";
+            this.lblServer.Size = new System.Drawing.Size(38, 13);
+            this.lblServer.TabIndex = 0;
+            this.lblServer.Text = "Server";
             // 
             // lblTextFile
             // 
@@ -104,10 +104,10 @@
             // 
             // txtServerIp
             // 
-            this.txtServerIp.Location = new System.Drawing.Point(85, 1);
-            this.txtServerIp.Name = "txtServerIp";
-            this.txtServerIp.Size = new System.Drawing.Size(163, 20);
-            this.txtServerIp.TabIndex = 5;
+            this.cmbxServers.Location = new System.Drawing.Point(85, 1);
+            this.cmbxServers.Name = "cmbxServers";
+            this.cmbxServers.Size = new System.Drawing.Size(163, 20);
+            this.cmbxServers.TabIndex = 5;
             // 
             // txtTextFile
             // 
@@ -330,8 +330,8 @@
             // pnlServer
             // 
             this.pnlServer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlServer.Controls.Add(this.txtServerIp);
-            this.pnlServer.Controls.Add(this.lblServerIP);
+            this.pnlServer.Controls.Add(this.cmbxServers);
+            this.pnlServer.Controls.Add(this.lblServer);
             this.pnlServer.Location = new System.Drawing.Point(31, 17);
             this.pnlServer.Name = "pnlServer";
             this.pnlServer.Size = new System.Drawing.Size(249, 24);
@@ -393,11 +393,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lblServerIP;
+        private System.Windows.Forms.Label lblServer;
         private System.Windows.Forms.Label lblTextFile;
         private System.Windows.Forms.Label lblSceneGraph;
         private System.Windows.Forms.Label lblPlayText;
-        private System.Windows.Forms.TextBox txtServerIp;
+        //private System.Windows.Forms.TextBox txtServerIp;
         private System.Windows.Forms.TextBox txtTextFile;
         private System.Windows.Forms.TextBox txtSceneGraph;
         private System.Windows.Forms.CheckBox cbPlayText;
@@ -423,6 +423,7 @@
         private System.Windows.Forms.Panel pnlServer;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ComboBox cmbxServers;
     }
 }
 
