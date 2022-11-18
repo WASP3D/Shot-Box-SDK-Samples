@@ -28,7 +28,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\Executables\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -69,10 +69,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Resources\Beesys.Wasp.Workflow.CommunicationHandler.dll</HintPath>
     </Reference>
-    <Reference Include="GeneralWorkings, Version=3.0.0.0, Culture=neutral, PublicKeyToken=97f06817abd0bb0a, processorArchitecture=MSIL">
+    <Reference Include="GeneralTasks, Version=3.0.0.0, Culture=neutral, PublicKeyToken=97f06817abd0bb0a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Resources\GeneralWorkings.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>C:\Program Files\Beehive Systems Ltd\WASP3D\Common\Shared Resources\GeneralTasks.dll</HintPath>
+    </Reference>
+    <Reference Include="IWaspWorkFlow, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\ShotBox SDK\Resources\IWaspWorkFlow.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />

@@ -21,8 +21,10 @@ namespace PagingApp
         private Link m_objLink = null;
         private ShotBox m_objShotBox = null;
         private string m_sLinkType = string.Empty;
-        private string m_sEngineIP = string.Empty;
-        private string m_sEngineUrl = string.Empty;
+        private string m_sServerIp = string.Empty;
+        //server ip used to connect shot box
+        private string m_sShotBoxServerIp = string.Empty;
+        private string kcurl;
         private string m_sWslPath = string.Empty;
         private bool m_bIsStop;
         private bool m_bIsPauseInfinite;
@@ -63,34 +65,25 @@ namespace PagingApp
         /// <param name="e"></param>
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            string sLinkFormat = null;
+            IPlayoutServerX playoutServer = null;
+
             try
             {
-                if (m_objShotBox == null)
+                if (cmbxServers.SelectedItem != null && cmbxServers.SelectedItem is IPlayoutServerX)
+                    playoutServer = cmbxServers.SelectedItem as IPlayoutServerX;
+
+                if (playoutServer != null && (Equals(m_objShotBox, null)))
                 {
-                    if (!string.IsNullOrEmpty(txtServerIp.Text.Trim()))
-                    {
-                        m_sEngineIP = txtServerIp.Text;
-                        switch (m_sLinkType.ToLower())
-                        {
-
-                            case "namedpipe":
-                                sLinkFormat = string.Format("net.pipe://{0}/WcfNamedPipeLink", txtServerIp.Text);
-                                break;
-                            default:
-                                sLinkFormat = string.Format("net.tcp://{0}:{1}/TcpBinding/WcfTcpLink", txtServerIp.Text, m_sPort);
-                                break;
-                        }
-                        m_sEngineUrl = sLinkFormat;
-                        m_objLink.Connect(sLinkFormat);
-
-                    }
+                    m_sServerIp = ((IPlayoutServer)playoutServer).GetUrl(m_sLinkType.ToLower());
+                    m_sShotBoxServerIp = playoutServer.GetPrepareUrl(m_sLinkType.ToLower());
+                    if (string.IsNullOrEmpty(m_sServerIp))
+                        m_sServerIp = playoutServer.GetPrepareUrl(m_sLinkType.ToLower());
+                    m_objLink.Connect(m_sServerIp, (playoutServer as CPlayoutServer).ChannelName);
                 }
-
             }
             catch (Exception ex)
             {
-                LogWriter.WriteLog("error in connecting with the server", ex);
+                LogWriter.WriteLog("connecting", ex.Message);
             }
         }
         /// <summary>
@@ -133,7 +126,7 @@ namespace PagingApp
             FileInfo objFile = null;
             try
             {
-                openFileDialog.Filter = "wsl files (*.wsl)|*.wsl";
+                openFileDialog.Filter = "wspx files|*.wspx";
                 openFileDialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + ConfigurationManager.AppSettings["WSL_PATH"];
                 if (m_objShotBox == null)
                 {
@@ -181,17 +174,19 @@ namespace PagingApp
                         m_sSGvariable = sSG;
                         m_objShotBox = m_objLink.GetShotBox(sSG, typeof(ShotBox), out sShotBoxID, out bIsTicker) as ShotBox;
 
-                        m_objShotBox.SetEngineUrl(m_sEngineUrl);
+                        m_objShotBox.SetEngineUrl(m_sShotBoxServerIp);
+
+                        m_objShotBox.SetOutputChannel(m_objLink.OutputChannel);
                         if (m_objShotBox is IAddinInfo)
                         {
                             // S.No.			: -	1
-                            //(m_objShotBox as IAddinInfo).Init(new InstanceInfo() { Type = "wsl", InstanceId = string.Empty, TemplateId = m_sWslPath, ThemeId = "default" });
-                            (m_objShotBox as IAddinInfo).Init(new InstanceInfo() { Type = "wsl", InstanceId = m_sWslPath, TemplateId = m_sWslPath, ThemeId = "default" });
+                            (m_objShotBox as IAddinInfo).Init(new InstanceInfo() { Type = "wspx", InstanceId = m_sWslPath, TemplateId = m_sWslPath, ThemeId = "default" });
                         }
 
                         m_objShotBox.OnShotBoxStatus += new EventHandler<SHOTBOXARGS>(objShotBox_OnShotBoxStatus);
                         m_objShotBox.OnShotBoxControllerStatus += new EventHandler<SHOTBOXARGS>(objShotBox_OnShotBoxControllerStatus);
-                        m_objShotBox.Prepare(m_sEngineIP, 0, string.Empty, RENDERMODE.PROGRAM);
+                        m_objShotBox.Prepare(m_sShotBoxServerIp, 0, string.Empty, RENDERMODE.PROGRAM);
+                        m_objShotBox.SceneCue();
 
                     }
                 }
@@ -413,29 +408,41 @@ namespace PagingApp
         /// <param name="e"></param>
         private void Paging_Load(object sender, EventArgs e)
         {
-            string sLinkID = null;
+            string sLinkID = string.Empty;
             try
             {
-                m_objLinkManager = new LinkManager();
                 m_sPort = ConfigurationManager.AppSettings["port"].ToString();
                 m_sLinkType = ConfigurationManager.AppSettings["linktype"].ToString();
-                txtServerIp.Text = ConfigurationManager.AppSettings["ipconfig"];
+                kcurl = ConfigurationManager.AppSettings["REMOTEMANAGERURL"].ToString();
+                m_objLinkManager = new LinkManager(kcurl);
                 if (!Equals(m_objLinkManager, null))
                 {
                     if (string.Compare(m_sLinkType, "TCP", StringComparison.OrdinalIgnoreCase) == 0)
                         m_objLink = m_objLinkManager.GetLink(LINKTYPE.TCP, out sLinkID);
                     if (string.Compare(m_sLinkType, "NAMEDPIPE", StringComparison.OrdinalIgnoreCase) == 0)
                         m_objLink = m_objLinkManager.GetLink(LINKTYPE.NAMEDPIPE, out sLinkID);
-
                 }
-                cbPlayText.Enabled = false;
-                m_objLink.OnEngineConnected += new EventHandler<EngineArgs>(objLink_OnEngineConnected);
+                if (!Equals(m_objLink, null))
+                {
+                    m_objLink.OnEngineConnected += new EventHandler<EngineArgs>(objLink_OnEngineConnected);
+                }
                 this.FormClosing += new FormClosingEventHandler(Paging_FormClosing);
-
+                Init();
             }
             catch (Exception ex)
             {
-                LogWriter.WriteLog(" error in getting the link", ex.Message);
+                LogWriter.WriteLog("loading", ex.Message);
+            }
+        }
+        private void Init()
+        {
+            try
+            {
+                RefreshServersList();
+            }
+            catch (Exception ex)
+            {
+                LogWriter.WriteLog(ex);
             }
         }
         /// <summary>
@@ -449,16 +456,41 @@ namespace PagingApp
             {
                 if (!Equals(m_objShotBox, null))
                 {
+                    //Removing the loaded scene from server
                     m_objShotBox.DeleteSg();
                 }
                 if (!Equals(m_objLink, null))
                 {
+                    //Remove the old scenes which were in use a long time ago.                   
+                    DeleteUnusedSG();
+
+                    //Disconnect and Remove the communication channel with all Engines connected using this link.
                     m_objLink.DisconnectAll();
                 }
+
             }
             catch (Exception ex)
             {
                 LogWriter.WriteLog("error in form closing", ex.Message);
+            }
+        }
+        /// <summary>
+        /// Remove the old scenes which were in use a long time ago.        
+        /// </summary>
+        private void DeleteUnusedSG()
+        {
+            try
+            {
+                //Generally removes scenes which are unused and were last in use 60 seconds ago.
+                //This can be configured in ChannelInfo.xml.
+                //<timer del_unused_duration = "60" />
+                //present in \\WASP3D\Common\HostedAssemblies\LinkCommandManager
+                m_objLink.RemoveUnusedSG(m_sServerIp);
+
+            }
+            catch
+            {
+
             }
         }
         /// <summary>
@@ -617,7 +649,29 @@ namespace PagingApp
             }
         }
 
+        /// <summary>
+        /// Refresh list of sting servers
+        /// </summary>
+        private void RefreshServersList()
+        {
+            try
+            {
+                //Gets the list of engines i.e, Sting servers available on KC
+                List<CPlayoutServer> lstmodules = Util.GetActiveServers();
 
+                cmbxServers.DataSource = null;
+                cmbxServers.DataSource = lstmodules;
+                cmbxServers.DisplayMember = "EngineName";
+            }
+            catch (Exception ex)
+            {
+                LogWriter.WriteLog(ex);
+            }
+            finally
+            {
+
+            }
+        }
     }
 
 

@@ -31,7 +31,6 @@
             this.lblServerIp = new System.Windows.Forms.Label();
             this.lblSceneName = new System.Windows.Forms.Label();
             this.btnConnect = new System.Windows.Forms.Button();
-            this.txtServerIp = new System.Windows.Forms.TextBox();
             this.btnLoadScene = new System.Windows.Forms.Button();
             this.btnFileDialog = new System.Windows.Forms.Button();
             this.txtSceneName = new System.Windows.Forms.TextBox();
@@ -43,19 +42,16 @@
             this.btnProgram = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmbxServers = new System.Windows.Forms.ComboBox();
             this.groupBox2.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblServerIp
             // 
             this.lblServerIp.AutoSize = true;
-            this.lblServerIp.Location = new System.Drawing.Point(20, 3);
+            this.lblServerIp.Location = new System.Drawing.Point(15, 16);
             this.lblServerIp.Name = "lblServerIp";
             this.lblServerIp.Size = new System.Drawing.Size(47, 13);
             this.lblServerIp.TabIndex = 0;
@@ -64,7 +60,7 @@
             // lblSceneName
             // 
             this.lblSceneName.AutoSize = true;
-            this.lblSceneName.Location = new System.Drawing.Point(20, 5);
+            this.lblSceneName.Location = new System.Drawing.Point(15, 44);
             this.lblSceneName.Name = "lblSceneName";
             this.lblSceneName.Size = new System.Drawing.Size(70, 13);
             this.lblSceneName.TabIndex = 1;
@@ -80,13 +76,6 @@
             this.btnConnect.Text = "Connect";
             this.btnConnect.UseVisualStyleBackColor = true;
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
-            // 
-            // txtServerIp
-            // 
-            this.txtServerIp.Location = new System.Drawing.Point(110, 0);
-            this.txtServerIp.Name = "txtServerIp";
-            this.txtServerIp.Size = new System.Drawing.Size(164, 20);
-            this.txtServerIp.TabIndex = 3;
             // 
             // btnLoadScene
             // 
@@ -112,10 +101,9 @@
             // 
             // txtSceneName
             // 
-            this.txtSceneName.Dock = System.Windows.Forms.DockStyle.Right;
-            this.txtSceneName.Location = new System.Drawing.Point(110, 0);
+            this.txtSceneName.Location = new System.Drawing.Point(106, 45);
             this.txtSceneName.Name = "txtSceneName";
-            this.txtSceneName.Size = new System.Drawing.Size(167, 20);
+            this.txtSceneName.Size = new System.Drawing.Size(164, 20);
             this.txtSceneName.TabIndex = 5;
             // 
             // groupBox2
@@ -193,24 +181,6 @@
             // 
             this.openFileDialog2.FileName = "openFileDialog2";
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.lblServerIp);
-            this.panel1.Controls.Add(this.txtServerIp);
-            this.panel1.Location = new System.Drawing.Point(12, 21);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(277, 22);
-            this.panel1.TabIndex = 81;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.lblSceneName);
-            this.panel2.Controls.Add(this.txtSceneName);
-            this.panel2.Location = new System.Drawing.Point(12, 49);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(277, 22);
-            this.panel2.TabIndex = 82;
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btnProgram);
@@ -222,14 +192,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Render Mode";
             // 
+            // cmbxServers
+            // 
+            this.cmbxServers.Location = new System.Drawing.Point(106, 12);
+            this.cmbxServers.Name = "cmbxServers";
+            this.cmbxServers.Size = new System.Drawing.Size(163, 21);
+            this.cmbxServers.TabIndex = 84;
+            // 
             // GettingStart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(492, 237);
+            this.Controls.Add(this.cmbxServers);
+            this.Controls.Add(this.txtSceneName);
+            this.Controls.Add(this.lblSceneName);
+            this.Controls.Add(this.lblServerIp);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnFileDialog);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnConnect);
@@ -238,12 +217,9 @@
             this.Text = "GettingStarted";
             this.Load += new System.EventHandler(this.GettingStart_Load);
             this.groupBox2.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -252,7 +228,6 @@
         private System.Windows.Forms.Label lblServerIp;
         private System.Windows.Forms.Label lblSceneName;
         private System.Windows.Forms.Button btnConnect;
-        private System.Windows.Forms.TextBox txtServerIp;
         private System.Windows.Forms.Button btnLoadScene;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button btnStop;
@@ -264,9 +239,8 @@
         private System.Windows.Forms.Button btnPreview;
         private System.Windows.Forms.Button btnProgram;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ComboBox cmbxServers;
     }
 }
 

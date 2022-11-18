@@ -10,6 +10,7 @@ using Beesys.Wasp.Workflow;
 using System.Configuration;
 using System.IO;
 using System.Collections;
+using System.Security.Policy;
 
 namespace GettingStarted
 {
@@ -20,7 +21,8 @@ namespace GettingStarted
         private Link m_objLink = null;
         private LinkManager m_objLinkManager = null;
         private string m_sServerIp = string.Empty;
-
+        //server ip used to connect shot box
+        private string m_sShotBoxServerIp = string.Empty;
         private string m_sUrl = "net.tcp://{0}:{1}/TcpBinding/WcfTcpLink";
         bool m_isPause = false;
         private FileInfo m_fileInfo = null;
@@ -30,6 +32,7 @@ namespace GettingStarted
         {
             InitializeComponent();
         }
+
         /// <summary>
         /// used to connect with the server
         /// </summary>
@@ -37,31 +40,27 @@ namespace GettingStarted
         /// <param name="e"></param>
         private void btnConnect_Click(object sender, EventArgs e)
         {
-
+            IPlayoutServerX playoutServer = null;
             try
             {
+                if (cmbxServers.SelectedItem != null && cmbxServers.SelectedItem is IPlayoutServerX)
+                    playoutServer = cmbxServers.SelectedItem as IPlayoutServerX;
 
-                if (Equals(m_objShotBox, null) && !string.IsNullOrEmpty(txtServerIp.Text))
+                if (playoutServer != null && (Equals(m_objShotBox, null)))
                 {
-                    switch (m_sLinkType.ToLower())
-                    {
-                        case "namedpipe":
-                            m_sServerIp = string.Format("net.pipe://{0}/WcfNamedPipeLink", txtServerIp.Text);
-                            break;
-                        default:
-                            m_sServerIp = string.Format(m_sUrl, txtServerIp.Text, m_sPort);
-                            break;
-                    }
-                    m_objLink.Connect(m_sServerIp);
+                    m_sServerIp = ((IPlayoutServer)playoutServer).GetUrl(m_sLinkType.ToLower());
+                    m_sShotBoxServerIp = playoutServer.GetPrepareUrl(m_sLinkType.ToLower());
+                    if (string.IsNullOrEmpty(m_sServerIp))
+                        m_sServerIp = playoutServer.GetPrepareUrl(m_sLinkType.ToLower());
+                    m_objLink.Connect(m_sServerIp, (playoutServer as CPlayoutServer).ChannelName);
                 }
-
             }
             catch (Exception ex)
             {
                 LogWriter.WriteLog("connecting", ex.Message);
             }
-
         }
+
         /// <summary>
         /// fires when engine is connected
         /// </summary>
@@ -71,7 +70,6 @@ namespace GettingStarted
         {
             btnConnect.BackColor = Color.DarkGreen;
         }
-
 
         /// <summary>
         /// this event fires when user wants to close the form
@@ -95,6 +93,7 @@ namespace GettingStarted
                 LogWriter.WriteLog("error in form closing", ex.Message);
             }
         }
+
         /// <summary>
         /// used to selecting the scenegraph
         /// </summary>
@@ -104,7 +103,7 @@ namespace GettingStarted
         {
             try
             {
-                openFileDialog1.Filter = "wsl files|*.wsl";
+                openFileDialog1.Filter = "wspx files|*.wspx";
                 openFileDialog1.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 if (Equals(openFileDialog1.ShowDialog(), DialogResult.OK))
                 {
@@ -138,8 +137,8 @@ namespace GettingStarted
             {
                 LogWriter.WriteLog("error in setting the mode:program", ex.Message);
             }
-
         }
+
         /// <summary>
         /// used to setting the mode as preview
         /// </summary>
@@ -160,8 +159,8 @@ namespace GettingStarted
             {
                 LogWriter.WriteLog("error in setting the mode:preview", ex.Message);
             }
-
         }
+
         /// <summary>
         /// used to pause the scenegraph
         /// </summary>
@@ -182,8 +181,8 @@ namespace GettingStarted
             {
                 LogWriter.WriteLog("error in pausing the scenegraph", ex.Message);
             }
-
         }
+
         /// <summary>
         /// used to stop the scenegraph
         /// </summary>
@@ -204,8 +203,8 @@ namespace GettingStarted
             {
                 LogWriter.WriteLog("error in stoping the scenegraph", ex.Message);
             }
-
         }
+
         /// <summary>
         /// used to play the scenegraph
         /// </summary>
@@ -226,17 +225,13 @@ namespace GettingStarted
                         m_objShotBox.Play(false, false);
                     m_isPause = false;
                 }
-
             }
             catch (Exception ex)
             {
                 LogWriter.WriteLog("error in playing the scenegraph", ex.Message);
             }
-
-
-
-
         }
+
         /// <summary>
         /// used for preparing the scenegraph
         /// </summary>
@@ -250,38 +245,29 @@ namespace GettingStarted
                 string xml = Util.getSGFromWSL(openFileDialog1.FileName);
                 string shotBoxID = null;
                 bool isTicker;
-
                 if (!string.IsNullOrEmpty(xml))
                 {
-
                     m_objShotBox = m_objLink.GetShotBox(xml, out shotBoxID, out isTicker) as ShotBox;
                     if (!Equals(m_objShotBox, null))
                     {
-                        m_objShotBox.SetEngineUrl(m_sServerIp);
+                        m_objShotBox.SetEngineUrl(m_sShotBoxServerIp);
+                        m_objShotBox.SetOutputChannel(m_objLink.OutputChannel);
                         if (m_objShotBox is IAddinInfo)
                         {
                             //S.No.			: -	1
                             // (m_objShotBox as IAddinInfo).Init(new InstanceInfo() { Type = "wsl", InstanceId = string.Empty, TemplateId = openFileDialog1.FileName, ThemeId = "default" });
-                            (m_objShotBox as IAddinInfo).Init(new InstanceInfo() { Type = "wsl", InstanceId = openFileDialog1.FileName, TemplateId = openFileDialog1.FileName, ThemeId = "default" });
+                            (m_objShotBox as IAddinInfo).Init(new InstanceInfo() { Type = "wspx", InstanceId = openFileDialog1.FileName, TemplateId = openFileDialog1.FileName, ThemeId = "default" });
                         }
                         m_objShotBox.OnShotBoxStatus += new EventHandler<SHOTBOXARGS>(m_objShotBox_OnShotBoxStatus);
-
-                        m_objShotBox.Prepare(m_sServerIp, 0, RENDERMODE.PROGRAM);
-
+                        m_objShotBox.Prepare(m_sShotBoxServerIp, 0, string.Empty, RENDERMODE.PROGRAM);
                     }
-
                 }
                 #endregion
-
-
             }
             catch (Exception ex)
             {
                 LogWriter.WriteLog("error in preparing the scenegraph", ex.Message);
             }
-
-
-
         }
         /// <summary>
         /// this event fires when scenegraph is loaded
@@ -306,29 +292,42 @@ namespace GettingStarted
             try
             {
                 string sLinkID = null;
-
                 m_sPort = ConfigurationManager.AppSettings["port"].ToString();
-                txtServerIp.Text = ConfigurationManager.AppSettings["ipconfig"].ToString();
                 m_sLinkType = ConfigurationManager.AppSettings["linktype"].ToString();
-                m_objLinkManager = new LinkManager();
+                string kcurl = ConfigurationManager.AppSettings["REMOTEMANAGERURL"].ToString();
+                m_objLinkManager = new LinkManager(kcurl);
                 if (!Equals(m_objLinkManager, null))
                 {
                     if (string.Compare(m_sLinkType, "TCP", StringComparison.OrdinalIgnoreCase) == 0)
                         m_objLink = m_objLinkManager.GetLink(LINKTYPE.TCP, out sLinkID);
                     if (string.Compare(m_sLinkType, "NAMEDPIPE", StringComparison.OrdinalIgnoreCase) == 0)
                         m_objLink = m_objLinkManager.GetLink(LINKTYPE.NAMEDPIPE, out sLinkID);
-
                 }
-
                 if (!Equals(m_objLink, null))
                     m_objLink.OnEngineConnected += new EventHandler<EngineArgs>(objLink_OnEngineConnected);
-
                 this.FormClosing += new FormClosingEventHandler(GettingStart_FormClosing);
-
+                RefreshServersList();
             }
             catch (Exception ex)
             {
                 LogWriter.WriteLog("loading", ex.Message);
+            }
+        }
+
+        private void RefreshServersList()
+        {
+            try
+            {
+                //Gets the list of engines i.e, Sting servers available on KC
+                List<CPlayoutServer> lstmodules = Util.GetActiveServers();
+
+                cmbxServers.DataSource = null;
+                cmbxServers.DataSource = lstmodules;
+                cmbxServers.DisplayMember = "EngineName";
+            }
+            catch (Exception ex)
+            {
+                LogWriter.WriteLog(ex);
             }
         }
     }

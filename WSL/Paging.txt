@@ -1,3 +1,0 @@
-First page for paging demo.
-This can be used to display any data.
-News, Sports, financial or any kind of data can be used for paging.
