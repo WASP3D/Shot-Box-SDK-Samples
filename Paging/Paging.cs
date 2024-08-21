@@ -34,6 +34,8 @@ namespace PagingApp
         private string m_sPort = string.Empty;
         private int m_iPlayCount;
         private TagData m_objTagData;
+        private int m_appPort;
+        private string m_appName = string.Empty;
 
         #endregion
 
@@ -46,6 +48,7 @@ namespace PagingApp
             InitializeComponent();
             m_objArrayList = new ArrayList();
             m_objTagData = new TagData();
+           
         }
 
 
@@ -414,6 +417,12 @@ namespace PagingApp
                 m_sPort = ConfigurationManager.AppSettings["port"].ToString();
                 m_sLinkType = ConfigurationManager.AppSettings["linktype"].ToString();
                 kcurl = ConfigurationManager.AppSettings["REMOTEMANAGERURL"].ToString();
+                m_appName = ConfigurationManager.AppSettings["appName"].ToString();
+                m_appPort = Convert.ToInt32(ConfigurationManager.AppSettings["appPort"]);
+
+                BeeSys.Wasp.Communicator.CRemoteHelper cRemoteHelper = new BeeSys.Wasp.Communicator.CRemoteHelper(kcurl, m_appName, m_appPort);
+                cRemoteHelper.InitRemoteHelper();
+
                 m_objLinkManager = new LinkManager(kcurl);
                 if (!Equals(m_objLinkManager, null))
                 {
@@ -467,7 +476,9 @@ namespace PagingApp
                     //Disconnect and Remove the communication channel with all Engines connected using this link.
                     m_objLink.DisconnectAll();
                 }
-
+                //Environment.Exit(0) use becuase Exe stuck in task manager on closing the app
+                Environment.Exit(0);
+                
             }
             catch (Exception ex)
             {

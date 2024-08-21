@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BeeSys.Wasp3D.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,6 +14,7 @@ namespace PagingApp
         [STAThread]
         static void Main()
         {
+            WAssemblyManager.AddDefaultPath();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Paging());

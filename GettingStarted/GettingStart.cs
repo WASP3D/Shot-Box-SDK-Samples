@@ -11,6 +11,8 @@ using System.Configuration;
 using System.IO;
 using System.Collections;
 using System.Security.Policy;
+using BeeSys.Wasp.KernelController;
+using BeeSys.Wasp.Communicator;
 
 namespace GettingStarted
 {
@@ -28,6 +30,8 @@ namespace GettingStarted
         private FileInfo m_fileInfo = null;
         private string m_sLinkType = string.Empty;
         private string m_sPort = string.Empty;
+        private int m_appPort ;
+        private string m_appName=string.Empty;
         public GettingStart()
         {
             InitializeComponent();
@@ -87,10 +91,45 @@ namespace GettingStarted
                 if (!Equals(m_objLink, null))
                     m_objLink.DisconnectAll();
 
+                // Environment.Exit(0) use because Exe stuck in task manager on closing the app
+                //Environment.Exit(0);
+                RemoveUDTResponseInstance();
+                BeeSys.Wasp.Communicator.CRemoteHelper.AppClosing();
             }
             catch (Exception ex)
             {
                 LogWriter.WriteLog("error in form closing", ex.Message);
+            }
+        }
+
+
+        private void RemoveUDTResponseInstance()
+        {
+            try
+            {
+                string kcUrl = ConfigurationManager.AppSettings["REMOTEMANAGERURL"].ToString();
+                //remove client response proxy from UDTDataManager Helper
+                if (!string.IsNullOrEmpty(kcUrl)
+                    && CRemoteHelper.CurrentConnectionStatus.Status)
+                {
+                    ServiceUrl serviceUrl = CRemoteHelper.GetDisconnectedUrl("UDTDataManager");
+                    UDTDataManagerHelper uDTDataManager = new UDTDataManagerHelper(serviceUrl.sEndpointAddress);
+                    if (uDTDataManager != null)
+                    {
+                        ConnectArgs connectArgs = uDTDataManager.ConnectUdt(CRemoteHelper.WModuleName.ToString());
+                        if (!string.IsNullOrEmpty(uDTDataManager.Sessionid))
+                        {
+                            uDTDataManager.RemoveSessionOnClose(uDTDataManager.Sessionid);
+
+                            uDTDataManager.Dispose();
+                            uDTDataManager = null;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogWriter.WriteLog(ex);
             }
         }
 
@@ -256,7 +295,7 @@ namespace GettingStarted
                         {
                             //S.No.			: -	1
                             // (m_objShotBox as IAddinInfo).Init(new InstanceInfo() { Type = "wsl", InstanceId = string.Empty, TemplateId = openFileDialog1.FileName, ThemeId = "default" });
-                            (m_objShotBox as IAddinInfo).Init(new InstanceInfo() { Type = "wspx", InstanceId = openFileDialog1.FileName, TemplateId = openFileDialog1.FileName, ThemeId = "default" });
+                            (m_objShotBox as IAddinInfo).Init(new Beesys.Wasp.Workflow.InstanceInfo() { Type = "wspx", InstanceId = openFileDialog1.FileName, TemplateId = openFileDialog1.FileName, ThemeId = "default" });
                         }
                         m_objShotBox.OnShotBoxStatus += new EventHandler<SHOTBOXARGS>(m_objShotBox_OnShotBoxStatus);
                         m_objShotBox.Prepare(m_sShotBoxServerIp, 0, string.Empty, RENDERMODE.PROGRAM);
@@ -291,10 +330,18 @@ namespace GettingStarted
         {
             try
             {
+
+               
+
                 string sLinkID = null;
                 m_sPort = ConfigurationManager.AppSettings["port"].ToString();
                 m_sLinkType = ConfigurationManager.AppSettings["linktype"].ToString();
                 string kcurl = ConfigurationManager.AppSettings["REMOTEMANAGERURL"].ToString();
+                m_appName= ConfigurationManager.AppSettings["appName"].ToString() ;
+                m_appPort = Convert.ToInt32(ConfigurationManager.AppSettings["appPort"]);
+                BeeSys.Wasp.Communicator.CRemoteHelper cRemoteHelper = new BeeSys.Wasp.Communicator.CRemoteHelper(kcurl, m_appName, m_appPort);
+                cRemoteHelper.InitRemoteHelper();
+
                 m_objLinkManager = new LinkManager(kcurl);
                 if (!Equals(m_objLinkManager, null))
                 {

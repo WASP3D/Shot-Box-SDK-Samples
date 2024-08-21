@@ -24,11 +24,11 @@
     </SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Executables\</OutputPath>
+    <OutputPath>..\Executables\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -45,52 +45,45 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Beesys.Wasp.AddIn.ILinkCommandManager, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Beesys.Wasp.AddIn.ILinkCommandManager">
       <HintPath>..\Resources\Beesys.Wasp.AddIn.ILinkCommandManager.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="BeeSys.Wasp.CommonReference, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="BeeSys.Wasp.CommonReference">
       <HintPath>..\Resources\BeeSys.Wasp.CommonReference.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="BeeSys.Wasp.Communicator, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="BeeSys.Wasp.Communicator">
       <HintPath>..\Resources\BeeSys.Wasp.Communicator.dll</HintPath>
-    </Reference>
-    <Reference Include="Beesys.Wasp.IWaspSceneReader, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Resources\Beesys.Wasp.IWaspSceneReader.dll</HintPath>
-    </Reference>
-    <Reference Include="BeeSys.Wasp.KernelController.IServices, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Resources\BeeSys.Wasp.KernelController.IServices.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="BeeSys.Wasp.ModuleUtils">
       <HintPath>..\Resources\BeeSys.Wasp.ModuleUtils.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Beesys.Wasp.SceneReader">
       <HintPath>..\Resources\Beesys.Wasp.SceneReader.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Beesys.Wasp.ShotBoxManager, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Beesys.Wasp.ShotBoxManager">
       <HintPath>..\Resources\Beesys.Wasp.ShotBoxManager.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Beesys.Wasp.Workflow.CommunicationHandler, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Beesys.Wasp.Workflow.CommunicationHandler">
       <HintPath>..\Resources\Beesys.Wasp.Workflow.CommunicationHandler.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="GeneralTasks, Version=3.0.0.0, Culture=neutral, PublicKeyToken=97f06817abd0bb0a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="GeneralTasks">
       <HintPath>..\Resources\GeneralTasks.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Interop.MSMQ, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
+    <Reference Include="Interop.MSMQ">
       <HintPath>..\Resources\Interop.MSMQ.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="IWaspWorkFlow, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="IWaspWorkFlow">
       <HintPath>..\Resources\IWaspWorkFlow.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -103,17 +96,17 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Xceed.Compression, Version=3.2.6319.0, Culture=neutral, PublicKeyToken=ba83ff368b7563c6">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Resources\Xceed.Compression.dll</HintPath>
+    <Reference Include="Xceed.Compression">
+      <HintPath>C:\Program Files\Beehive Systems Ltd\WASP3D\Common\Shared Resources\Xceed.Compression.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Xceed.FileSystem, Version=3.2.6319.0, Culture=neutral, PublicKeyToken=ba83ff368b7563c6">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Resources\Xceed.FileSystem.dll</HintPath>
+    <Reference Include="Xceed.FileSystem">
+      <HintPath>C:\Program Files\Beehive Systems Ltd\WASP3D\Common\Shared Resources\Xceed.FileSystem.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="Xceed.Zip, Version=3.2.6319.0, Culture=neutral, PublicKeyToken=ba83ff368b7563c6">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Resources\Xceed.Zip.dll</HintPath>
+    <Reference Include="Xceed.Zip">
+      <HintPath>C:\Program Files\Beehive Systems Ltd\WASP3D\Common\Shared Resources\Xceed.Zip.dll</HintPath>
+      <Private>False</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +118,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WAssemblyResolver.cs" />
     <EmbeddedResource Include="Paging.resx">
       <DependentUpon>Paging.cs</DependentUpon>
     </EmbeddedResource>

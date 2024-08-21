@@ -10,6 +10,7 @@ using Beesys.Wasp.Workflow;
 using System.Configuration;
 using System.IO;
 using System.Collections;
+using BeeSys.Wasp.Communicator;
 
 namespace OnlineUpdate
 {
@@ -36,6 +37,8 @@ namespace OnlineUpdate
         bool m_bIsPause = false;
         private UserTagCollection m_objUserTag;
         private FileInfo m_objFileInfo = null;
+        private int m_appPort;
+        private string m_appName = string.Empty;
 
         #endregion
 
@@ -382,6 +385,12 @@ namespace OnlineUpdate
                 m_sPort = ConfigurationManager.AppSettings["port"].ToString();
                 m_sLinkType = ConfigurationManager.AppSettings["linktype"].ToString();
                 kcurl = ConfigurationManager.AppSettings["REMOTEMANAGERURL"].ToString();
+                m_appName = ConfigurationManager.AppSettings["appName"].ToString();
+                m_appPort = Convert.ToInt32(ConfigurationManager.AppSettings["appPort"]);
+
+                BeeSys.Wasp.Communicator.CRemoteHelper cRemoteHelper = new BeeSys.Wasp.Communicator.CRemoteHelper(kcurl, m_appName, m_appPort);
+                cRemoteHelper.InitRemoteHelper();
+
                 m_objLinkManager = new LinkManager(kcurl);
                 if (!Equals(m_objLinkManager, null))
                 {
@@ -431,7 +440,8 @@ namespace OnlineUpdate
                     //Disconnect and Remove the communication channel with all Engines connected using this link.
                     m_objLink.DisconnectAll();
                 }
-
+                // Environment.Exit(0) use because Exe stuck in task manager on closing the app
+                Environment.Exit(0);
             }
             catch (Exception ex)
             {
