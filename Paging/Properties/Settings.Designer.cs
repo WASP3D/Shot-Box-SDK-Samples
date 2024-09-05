@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PagingApp.Properties {
+namespace PagingApp.Properties  {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

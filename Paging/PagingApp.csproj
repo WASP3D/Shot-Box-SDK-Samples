@@ -44,6 +44,24 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\Executables\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Beesys.Wasp.AddIn.ILinkCommandManager">
       <HintPath>..\Resources\Beesys.Wasp.AddIn.ILinkCommandManager.dll</HintPath>
@@ -96,6 +114,10 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WaspMosDataEntry">
+      <HintPath>..\Resources\WaspMosDataEntry.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Xceed.Compression">
       <HintPath>C:\Program Files\Beehive Systems Ltd\WASP3D\Common\Shared Resources\Xceed.Compression.dll</HintPath>
       <Private>False</Private>

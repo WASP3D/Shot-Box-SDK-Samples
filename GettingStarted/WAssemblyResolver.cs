@@ -27,8 +27,8 @@ namespace BeeSys.Wasp3D.Utility
             {
                 string assemblyFileName = args.Name;
                 if (assemblyFileName.EndsWith(".resources"))
-                {                   
-                    assemblyFileName = assemblyFileName.Substring(0, assemblyFileName.Length - ".resources".Length);                  
+                {
+                    assemblyFileName = assemblyFileName.Substring(0, assemblyFileName.Length - ".resources".Length);
                 }
                 AssemblyName name = new AssemblyName(assemblyFileName);
                 string assemblyName = name.Name + ".dll";
@@ -64,8 +64,6 @@ namespace BeeSys.Wasp3D.Utility
         }
 
 
-
-
         public static void AddDefaultPath()
         {
             string sCommonPath = Environment.GetEnvironmentVariable("WaspCommon", EnvironmentVariableTarget.Machine);
@@ -76,6 +74,8 @@ namespace BeeSys.Wasp3D.Utility
 
             var _64BITPATH = sCommonPath + "{0}Shared Resources{0}X64";
 
+            var _86BITPATH = sCommonPath + "{0}Shared Resources{0}x86";
+
             if (Environment.Is64BitProcess)
             {
 
@@ -84,45 +84,23 @@ namespace BeeSys.Wasp3D.Utility
                                        (
                                            Path.Combine
                                                        (
-                                                           sCommonPath,
+                                                           Application.StartupPath,
                                                            String.Format(CultureInfo.InvariantCulture, _64BITPATH, Path.DirectorySeparatorChar)
                                                        )
                                        );
             }
-
-
-            //to Connect 5.9 LegacyKC
-            //https://waspsource.beesys.com/Products/ClientHosts/-/issues/707
-            var KC_LEGACYPATH = sCommonPath + "{0}Shared Resources{0}KCLegacy";
-            bool bConnectKCLegacy = false;
-            if (ConfigurationManager.AppSettings["ConnectKcLegacy"] != null)
-            {
-                string value = ConfigurationManager.AppSettings["ConnectKcLegacy"].ToString();
-                if (string.Compare(value, Boolean.TrueString, true) == 0)
-                {
-                    bConnectKCLegacy = true;
-                }
-            }
-            if(!bConnectKCLegacy)
-            bConnectKCLegacy = CheckToConnectKCLegacy();
-            if (bConnectKCLegacy)
+            else
             {
 
-                string kcLegacyPath = Path.Combine(sCommonPath, String.Format(CultureInfo.InvariantCulture, KC_LEGACYPATH, Path.DirectorySeparatorChar));
-                //RESOLVE KC Legacy SHARED RESOURCE
-                WAssemblyManager.AddPath(kcLegacyPath);
-
-                //Load the dll from KC legacy
-                FileInfo[] files = null;
-                DirectoryInfo directoryInfo = new DirectoryInfo(kcLegacyPath);
-                files = directoryInfo.GetFiles("*.dll");
-                if (files != null && files.Length > 0)
-                {
-                    foreach (FileInfo item in files)
-                    {
-                        Assembly.LoadFrom(item.FullName);
-                    }
-                }
+                //RESOLVE SHARED RESOURCE -> 64 BIT DLL
+                WAssemblyManager.AddPath
+                                       (
+                                           Path.Combine
+                                                       (
+                                                           Application.StartupPath,
+                                                           String.Format(CultureInfo.InvariantCulture, _86BITPATH, Path.DirectorySeparatorChar)
+                                                       )
+                                       );
             }
 
             //RESOLVE SHARED RESOURCE
@@ -131,7 +109,7 @@ namespace BeeSys.Wasp3D.Utility
                                     (
                                         Path.Combine
                                                     (
-                                                        sCommonPath,
+                                                        Application.StartupPath,
                                                         String.Format(CultureInfo.InvariantCulture, STARTPATH, Path.DirectorySeparatorChar)
                                                     )
                                     );
@@ -142,50 +120,11 @@ namespace BeeSys.Wasp3D.Utility
                                     (
                                         Path.Combine
                                                     (
-                                                        sCommonPath,
+                                                        Application.StartupPath,
                                                         String.Format(CultureInfo.InvariantCulture, LEGACYPATH, Path.DirectorySeparatorChar)
                                                     )
                                     );
 
-        }
-
-        //to Connect 5.9 LegacyKC
-        //https://waspsource.beesys.com/Products/ClientHosts/-/issues/707
-        private static bool CheckToConnectKCLegacy()
-        {
-            try
-            {
-                string sCommonPath = Environment.GetEnvironmentVariable("WaspCommon", EnvironmentVariableTarget.Machine);
-                var STARTPATH = sCommonPath + "{0}CommonConfig.config";
-
-                string CommonPath = Path.Combine(sCommonPath,String.Format(CultureInfo.InvariantCulture, STARTPATH, Path.DirectorySeparatorChar));
-                if (File.Exists(CommonPath))
-                {
-                    string connectKCLegacy = string.Empty;
-                    XDocument document = XDocument.Load(CommonPath);
-                    if (document != null)
-                    {
-                        XElement element = document.Descendants("add").Where(x => x.Attribute("key").Value == "ConnectKcLegacy").FirstOrDefault();
-                        if (element != null)
-                        {
-                            connectKCLegacy = element.Attribute("value").Value;
-                            bool bConnectKCLegacy = false;
-                            bool bValid = bool.TryParse(connectKCLegacy, out bConnectKCLegacy);
-
-                            if (bValid)
-                            {
-                                return bConnectKCLegacy;
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-
-            return false;
         }
 
         public static void AddPath(string basePath)
@@ -202,7 +141,7 @@ namespace BeeSys.Wasp3D.Utility
             }
             catch (Exception ex)
             {
-               /// EventLogger.WriteLog(ModuleNameEnum.SharedLibraryAssemblyLoader, ex, basePath);
+                //EventLogger.WriteLog(ModuleNameEnum.SharedLibraryAssemblyLoader, ex, basePath);
             }
         }
 

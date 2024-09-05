@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OnlineUpdate.Properties {
+namespace OnlineUpdate.Properties  {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

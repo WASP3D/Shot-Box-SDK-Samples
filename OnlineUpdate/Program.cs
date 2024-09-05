@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace OnlineUpdate
 {
-    static class Program
+    static class Program 
     {
        
 

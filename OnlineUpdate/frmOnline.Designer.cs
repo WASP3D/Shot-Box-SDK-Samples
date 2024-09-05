@@ -44,25 +44,27 @@
             this.btnPlay = new System.Windows.Forms.Button();
             this.btnPreview = new System.Windows.Forms.Button();
             this.btnProgram = new System.Windows.Forms.Button();
-            this.btnFileDialog = new System.Windows.Forms.Button();
-            this.txtSceneName = new System.Windows.Forms.TextBox();
             this.btnConnect = new System.Windows.Forms.Button();
-            this.lblSceneName = new System.Windows.Forms.Label();
             this.cmbxServers = new System.Windows.Forms.ComboBox();
             this.lblServerIp = new System.Windows.Forms.Label();
             this.btnLoadScene = new System.Windows.Forms.Button();
             this.fileDialog = new System.Windows.Forms.OpenFileDialog();
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grpSceneGraph = new System.Windows.Forms.GroupBox();
+            this.rdbTemplate = new System.Windows.Forms.RadioButton();
+            this.rdbLocalSG = new System.Windows.Forms.RadioButton();
+            this.btnBrowse = new System.Windows.Forms.Button();
+            this.txtSceneName = new System.Windows.Forms.TextBox();
+            this.rdbInstance = new System.Windows.Forms.RadioButton();
             this.groupBox3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.grpSceneGraph.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox3
@@ -70,12 +72,12 @@
             this.groupBox3.Controls.Add(this.panel4);
             this.groupBox3.Controls.Add(this.panel3);
             this.groupBox3.Controls.Add(this.btnUpdate);
-            this.groupBox3.Location = new System.Drawing.Point(679, 87);
+            this.groupBox3.Location = new System.Drawing.Point(679, 121);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(307, 146);
+            this.groupBox3.Size = new System.Drawing.Size(251, 146);
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "UserTagGroup";
+            this.groupBox3.Text = "Variables";
             // 
             // panel4
             // 
@@ -83,12 +85,12 @@
             this.panel4.Controls.Add(this.lblUserValue);
             this.panel4.Location = new System.Drawing.Point(16, 60);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(285, 24);
+            this.panel4.Size = new System.Drawing.Size(223, 24);
             this.panel4.TabIndex = 64;
             // 
             // txtUserValue
             // 
-            this.txtUserValue.Location = new System.Drawing.Point(119, 1);
+            this.txtUserValue.Location = new System.Drawing.Point(59, 2);
             this.txtUserValue.Name = "txtUserValue";
             this.txtUserValue.Size = new System.Drawing.Size(163, 20);
             this.txtUserValue.TabIndex = 2;
@@ -98,9 +100,9 @@
             this.lblUserValue.AutoSize = true;
             this.lblUserValue.Location = new System.Drawing.Point(13, 4);
             this.lblUserValue.Name = "lblUserValue";
-            this.lblUserValue.Size = new System.Drawing.Size(75, 13);
+            this.lblUserValue.Size = new System.Drawing.Size(34, 13);
             this.lblUserValue.TabIndex = 4;
-            this.lblUserValue.Text = "UserTagValue";
+            this.lblUserValue.Text = "Value";
             // 
             // panel3
             // 
@@ -108,13 +110,13 @@
             this.panel3.Controls.Add(this.lblUserTag);
             this.panel3.Location = new System.Drawing.Point(16, 19);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(285, 24);
+            this.panel3.Size = new System.Drawing.Size(223, 24);
             this.panel3.TabIndex = 63;
             // 
             // cmbUserTag
             // 
             this.cmbUserTag.FormattingEnabled = true;
-            this.cmbUserTag.Location = new System.Drawing.Point(119, 1);
+            this.cmbUserTag.Location = new System.Drawing.Point(59, 1);
             this.cmbUserTag.Name = "cmbUserTag";
             this.cmbUserTag.Size = new System.Drawing.Size(163, 21);
             this.cmbUserTag.TabIndex = 0;
@@ -124,14 +126,14 @@
             this.lblUserTag.AutoSize = true;
             this.lblUserTag.Location = new System.Drawing.Point(13, 6);
             this.lblUserTag.Name = "lblUserTag";
-            this.lblUserTag.Size = new System.Drawing.Size(76, 13);
+            this.lblUserTag.Size = new System.Drawing.Size(35, 13);
             this.lblUserTag.TabIndex = 3;
-            this.lblUserTag.Text = "UserTagName";
+            this.lblUserTag.Text = "Name";
             // 
             // btnUpdate
             // 
             this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpdate.Location = new System.Drawing.Point(147, 98);
+            this.btnUpdate.Location = new System.Drawing.Point(88, 98);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(151, 28);
             this.btnUpdate.TabIndex = 1;
@@ -146,7 +148,7 @@
             this.groupBox2.Controls.Add(this.btnStop);
             this.groupBox2.Controls.Add(this.btnPause);
             this.groupBox2.Controls.Add(this.btnPlay);
-            this.groupBox2.Location = new System.Drawing.Point(3, 87);
+            this.groupBox2.Location = new System.Drawing.Point(3, 121);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(437, 146);
             this.groupBox2.TabIndex = 9;
@@ -230,24 +232,6 @@
             this.btnProgram.UseVisualStyleBackColor = true;
             this.btnProgram.Click += new System.EventHandler(this.btnProgram_Click_1);
             // 
-            // btnFileDialog
-            // 
-            this.btnFileDialog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFileDialog.Location = new System.Drawing.Point(290, 41);
-            this.btnFileDialog.Name = "btnFileDialog";
-            this.btnFileDialog.Size = new System.Drawing.Size(82, 25);
-            this.btnFileDialog.TabIndex = 6;
-            this.btnFileDialog.Text = "...";
-            this.btnFileDialog.UseVisualStyleBackColor = true;
-            this.btnFileDialog.Click += new System.EventHandler(this.btnFileDialog_Click_1);
-            // 
-            // txtSceneName
-            // 
-            this.txtSceneName.Location = new System.Drawing.Point(81, 3);
-            this.txtSceneName.Name = "txtSceneName";
-            this.txtSceneName.Size = new System.Drawing.Size(187, 20);
-            this.txtSceneName.TabIndex = 5;
-            // 
             // btnConnect
             // 
             this.btnConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -258,15 +242,6 @@
             this.btnConnect.Text = "Connect";
             this.btnConnect.UseVisualStyleBackColor = true;
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click_1);
-            // 
-            // lblSceneName
-            // 
-            this.lblSceneName.AutoSize = true;
-            this.lblSceneName.Location = new System.Drawing.Point(14, 8);
-            this.lblSceneName.Name = "lblSceneName";
-            this.lblSceneName.Size = new System.Drawing.Size(66, 13);
-            this.lblSceneName.TabIndex = 1;
-            this.lblSceneName.Text = "SceneName";
             // 
             // cmbxServers
             // 
@@ -287,9 +262,9 @@
             // btnLoadScene
             // 
             this.btnLoadScene.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLoadScene.Location = new System.Drawing.Point(391, 4);
+            this.btnLoadScene.Location = new System.Drawing.Point(378, 46);
             this.btnLoadScene.Name = "btnLoadScene";
-            this.btnLoadScene.Size = new System.Drawing.Size(92, 41);
+            this.btnLoadScene.Size = new System.Drawing.Size(92, 69);
             this.btnLoadScene.TabIndex = 4;
             this.btnLoadScene.Text = "LoadScene";
             this.btnLoadScene.UseVisualStyleBackColor = true;
@@ -308,41 +283,98 @@
             this.panel1.Size = new System.Drawing.Size(271, 28);
             this.panel1.TabIndex = 60;
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.lblSceneName);
-            this.panel2.Controls.Add(this.txtSceneName);
-            this.panel2.Location = new System.Drawing.Point(3, 38);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(271, 28);
-            this.panel2.TabIndex = 61;
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btnProgram);
             this.groupBox1.Controls.Add(this.btnPreview);
-            this.groupBox1.Location = new System.Drawing.Point(446, 87);
+            this.groupBox1.Location = new System.Drawing.Point(446, 121);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(227, 146);
             this.groupBox1.TabIndex = 62;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Render Mode";
             // 
+            // grpSceneGraph
+            // 
+            this.grpSceneGraph.Controls.Add(this.rdbInstance);
+            this.grpSceneGraph.Controls.Add(this.rdbTemplate);
+            this.grpSceneGraph.Controls.Add(this.rdbLocalSG);
+            this.grpSceneGraph.Controls.Add(this.btnBrowse);
+            this.grpSceneGraph.Controls.Add(this.txtSceneName);
+            this.grpSceneGraph.Location = new System.Drawing.Point(3, 38);
+            this.grpSceneGraph.Name = "grpSceneGraph";
+            this.grpSceneGraph.Size = new System.Drawing.Size(369, 76);
+            this.grpSceneGraph.TabIndex = 87;
+            this.grpSceneGraph.TabStop = false;
+            this.grpSceneGraph.Text = "Scene Graph";
+            // 
+            // rdbTemplate
+            // 
+            this.rdbTemplate.AutoSize = true;
+            this.rdbTemplate.Location = new System.Drawing.Point(88, 22);
+            this.rdbTemplate.Name = "rdbTemplate";
+            this.rdbTemplate.Size = new System.Drawing.Size(69, 17);
+            this.rdbTemplate.TabIndex = 8;
+            this.rdbTemplate.TabStop = true;
+            this.rdbTemplate.Text = "Template";
+            this.rdbTemplate.UseVisualStyleBackColor = true;
+            // 
+            // rdbLocalSG
+            // 
+            this.rdbLocalSG.AutoSize = true;
+            this.rdbLocalSG.Location = new System.Drawing.Point(13, 22);
+            this.rdbLocalSG.Name = "rdbLocalSG";
+            this.rdbLocalSG.Size = new System.Drawing.Size(64, 17);
+            this.rdbLocalSG.TabIndex = 7;
+            this.rdbLocalSG.TabStop = true;
+            this.rdbLocalSG.Text = "LocalSg";
+            this.rdbLocalSG.UseVisualStyleBackColor = true;
+            // 
+            // btnBrowse
+            // 
+            this.btnBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBrowse.Location = new System.Drawing.Point(254, 42);
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.Size = new System.Drawing.Size(97, 23);
+            this.btnBrowse.TabIndex = 6;
+            this.btnBrowse.Text = "Browse";
+            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
+            // 
+            // txtSceneName
+            // 
+            this.txtSceneName.Location = new System.Drawing.Point(13, 45);
+            this.txtSceneName.Name = "txtSceneName";
+            this.txtSceneName.Size = new System.Drawing.Size(238, 20);
+            this.txtSceneName.TabIndex = 5;
+            // 
+            // rdbInstance
+            // 
+            this.rdbInstance.AutoSize = true;
+            this.rdbInstance.Location = new System.Drawing.Point(163, 22);
+            this.rdbInstance.Name = "rdbInstance";
+            this.rdbInstance.Size = new System.Drawing.Size(66, 17);
+            this.rdbInstance.TabIndex = 9;
+            this.rdbInstance.TabStop = true;
+            this.rdbInstance.Text = "Instance";
+            this.rdbInstance.UseVisualStyleBackColor = true;
+            // 
             // frmOnline
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(991, 238);
+            this.ClientSize = new System.Drawing.Size(939, 275);
+            this.Controls.Add(this.grpSceneGraph);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btnFileDialog);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.btnLoadScene);
+            this.MaximumSize = new System.Drawing.Size(955, 314);
             this.Name = "frmOnline";
-            this.Text = "OnlineUpdate";
+            this.ShowIcon = false;
+            this.Text = "Online Update";
             this.Load += new System.EventHandler(this.frmOnline_Load);
             this.groupBox3.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
@@ -352,9 +384,9 @@
             this.groupBox2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            this.grpSceneGraph.ResumeLayout(false);
+            this.grpSceneGraph.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -375,10 +407,7 @@
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnPause;
         private System.Windows.Forms.Button btnPlay;
-        private System.Windows.Forms.Button btnFileDialog;
-        private System.Windows.Forms.TextBox txtSceneName;
         private System.Windows.Forms.Button btnConnect;
-        private System.Windows.Forms.Label lblSceneName;
         //private System.Windows.Forms.TextBox txtServerIp;
         private System.Windows.Forms.Label lblServerIp;
         private System.Windows.Forms.Button btnLoadScene;
@@ -387,9 +416,14 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox cmbxServers;
+        private System.Windows.Forms.GroupBox grpSceneGraph;
+        private System.Windows.Forms.RadioButton rdbTemplate;
+        private System.Windows.Forms.RadioButton rdbLocalSG;
+        private System.Windows.Forms.Button btnBrowse;
+        private System.Windows.Forms.TextBox txtSceneName;
+        private System.Windows.Forms.RadioButton rdbInstance;
     }
 }
 

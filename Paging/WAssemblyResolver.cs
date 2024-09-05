@@ -9,7 +9,7 @@ using System.Globalization;
 using System.Configuration;
 using System.Xml.Linq;
 
-namespace BeeSys.Wasp3D.Utility
+namespace BeeSys.Wasp3D.Utility 
 {
     public static class WAssemblyManager
     {

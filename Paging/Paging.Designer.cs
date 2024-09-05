@@ -30,11 +30,9 @@
         {
             this.lblServer = new System.Windows.Forms.Label();
             this.lblTextFile = new System.Windows.Forms.Label();
-            this.lblSceneGraph = new System.Windows.Forms.Label();
             this.lblPlayText = new System.Windows.Forms.Label();
             this.cmbxServers = new System.Windows.Forms.ComboBox();
             this.txtTextFile = new System.Windows.Forms.TextBox();
-            this.txtSceneGraph = new System.Windows.Forms.TextBox();
             this.cbPlayText = new System.Windows.Forms.CheckBox();
             this.btnConnect = new System.Windows.Forms.Button();
             this.btnLoadScene = new System.Windows.Forms.Button();
@@ -42,7 +40,6 @@
             this.btnPauseDefaultController = new System.Windows.Forms.Button();
             this.btnStopDefaultController = new System.Windows.Forms.Button();
             this.btnTextFile = new System.Windows.Forms.Button();
-            this.btnScene = new System.Windows.Forms.Button();
             this.btnProgram = new System.Windows.Forms.Button();
             this.btnPreview = new System.Windows.Forms.Button();
             this.gbRenderMode = new System.Windows.Forms.GroupBox();
@@ -57,13 +54,22 @@
             this.gbController = new System.Windows.Forms.GroupBox();
             this.pnlServer = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.grpSceneGraph = new System.Windows.Forms.GroupBox();
+            this.rdbInstance = new System.Windows.Forms.RadioButton();
+            this.rdbTemplate = new System.Windows.Forms.RadioButton();
+            this.rdbLocalSG = new System.Windows.Forms.RadioButton();
+            this.btnBrowse = new System.Windows.Forms.Button();
+            this.txtSceneName = new System.Windows.Forms.TextBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.cmbUserTag = new System.Windows.Forms.ComboBox();
+            this.lblUserTag = new System.Windows.Forms.Label();
             this.gbRenderMode.SuspendLayout();
             this.gbDefaultController.SuspendLayout();
             this.gbController.SuspendLayout();
             this.pnlServer.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.grpSceneGraph.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblServer
@@ -84,29 +90,20 @@
             this.lblTextFile.TabIndex = 1;
             this.lblTextFile.Text = "Text File";
             // 
-            // lblSceneGraph
-            // 
-            this.lblSceneGraph.AutoSize = true;
-            this.lblSceneGraph.Location = new System.Drawing.Point(3, 0);
-            this.lblSceneGraph.Name = "lblSceneGraph";
-            this.lblSceneGraph.Size = new System.Drawing.Size(70, 13);
-            this.lblSceneGraph.TabIndex = 2;
-            this.lblSceneGraph.Text = "Scene Graph";
-            // 
             // lblPlayText
             // 
             this.lblPlayText.AutoSize = true;
-            this.lblPlayText.Location = new System.Drawing.Point(33, 112);
+            this.lblPlayText.Location = new System.Drawing.Point(32, 160);
             this.lblPlayText.Name = "lblPlayText";
             this.lblPlayText.Size = new System.Drawing.Size(89, 13);
             this.lblPlayText.TabIndex = 3;
             this.lblPlayText.Text = "Play Text in Loop";
             // 
-            // txtServerIp
+            // cmbxServers
             // 
             this.cmbxServers.Location = new System.Drawing.Point(85, 1);
             this.cmbxServers.Name = "cmbxServers";
-            this.cmbxServers.Size = new System.Drawing.Size(163, 20);
+            this.cmbxServers.Size = new System.Drawing.Size(163, 21);
             this.cmbxServers.TabIndex = 5;
             // 
             // txtTextFile
@@ -116,17 +113,10 @@
             this.txtTextFile.Size = new System.Drawing.Size(163, 20);
             this.txtTextFile.TabIndex = 6;
             // 
-            // txtSceneGraph
-            // 
-            this.txtSceneGraph.Location = new System.Drawing.Point(85, 0);
-            this.txtSceneGraph.Name = "txtSceneGraph";
-            this.txtSceneGraph.Size = new System.Drawing.Size(163, 20);
-            this.txtSceneGraph.TabIndex = 7;
-            // 
             // cbPlayText
             // 
             this.cbPlayText.AutoSize = true;
-            this.cbPlayText.Location = new System.Drawing.Point(151, 112);
+            this.cbPlayText.Location = new System.Drawing.Point(14, 159);
             this.cbPlayText.Name = "cbPlayText";
             this.cbPlayText.Size = new System.Drawing.Size(15, 14);
             this.cbPlayText.TabIndex = 8;
@@ -135,7 +125,7 @@
             // btnConnect
             // 
             this.btnConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConnect.Location = new System.Drawing.Point(286, 16);
+            this.btnConnect.Location = new System.Drawing.Point(268, 13);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(97, 23);
             this.btnConnect.TabIndex = 9;
@@ -146,9 +136,9 @@
             // btnLoadScene
             // 
             this.btnLoadScene.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLoadScene.Location = new System.Drawing.Point(395, 13);
+            this.btnLoadScene.Location = new System.Drawing.Point(371, 85);
             this.btnLoadScene.Name = "btnLoadScene";
-            this.btnLoadScene.Size = new System.Drawing.Size(79, 68);
+            this.btnLoadScene.Size = new System.Drawing.Size(79, 62);
             this.btnLoadScene.TabIndex = 10;
             this.btnLoadScene.Text = "Load Scene";
             this.btnLoadScene.UseVisualStyleBackColor = true;
@@ -190,24 +180,13 @@
             // btnTextFile
             // 
             this.btnTextFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTextFile.Location = new System.Drawing.Point(286, 47);
+            this.btnTextFile.Location = new System.Drawing.Point(268, 44);
             this.btnTextFile.Name = "btnTextFile";
             this.btnTextFile.Size = new System.Drawing.Size(97, 23);
             this.btnTextFile.TabIndex = 17;
             this.btnTextFile.Text = "...";
             this.btnTextFile.UseVisualStyleBackColor = true;
             this.btnTextFile.Click += new System.EventHandler(this.btnTextFile_Click);
-            // 
-            // btnScene
-            // 
-            this.btnScene.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnScene.Location = new System.Drawing.Point(286, 79);
-            this.btnScene.Name = "btnScene";
-            this.btnScene.Size = new System.Drawing.Size(97, 23);
-            this.btnScene.TabIndex = 18;
-            this.btnScene.Text = "...";
-            this.btnScene.UseVisualStyleBackColor = true;
-            this.btnScene.Click += new System.EventHandler(this.btnScene_Click);
             // 
             // btnProgram
             // 
@@ -235,7 +214,7 @@
             // 
             this.gbRenderMode.Controls.Add(this.btnPreview);
             this.gbRenderMode.Controls.Add(this.btnProgram);
-            this.gbRenderMode.Location = new System.Drawing.Point(395, 140);
+            this.gbRenderMode.Location = new System.Drawing.Point(377, 187);
             this.gbRenderMode.Name = "gbRenderMode";
             this.gbRenderMode.Size = new System.Drawing.Size(129, 105);
             this.gbRenderMode.TabIndex = 21;
@@ -249,7 +228,7 @@
             this.gbDefaultController.Controls.Add(this.btnStopDefaultController);
             this.gbDefaultController.Controls.Add(this.btnPauseDefaultController);
             this.gbDefaultController.Controls.Add(this.btnPlayDefaultController);
-            this.gbDefaultController.Location = new System.Drawing.Point(29, 140);
+            this.gbDefaultController.Location = new System.Drawing.Point(11, 187);
             this.gbDefaultController.Name = "gbDefaultController";
             this.gbDefaultController.Size = new System.Drawing.Size(351, 105);
             this.gbDefaultController.TabIndex = 23;
@@ -320,9 +299,9 @@
             this.gbController.Controls.Add(this.btnStopController);
             this.gbController.Controls.Add(this.btnPauseController);
             this.gbController.Controls.Add(this.btnPlayController);
-            this.gbController.Location = new System.Drawing.Point(29, 251);
+            this.gbController.Location = new System.Drawing.Point(11, 298);
             this.gbController.Name = "gbController";
-            this.gbController.Size = new System.Drawing.Size(351, 73);
+            this.gbController.Size = new System.Drawing.Size(351, 55);
             this.gbController.TabIndex = 22;
             this.gbController.TabStop = false;
             this.gbController.Text = "Controller 1";
@@ -332,7 +311,7 @@
             this.pnlServer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlServer.Controls.Add(this.cmbxServers);
             this.pnlServer.Controls.Add(this.lblServer);
-            this.pnlServer.Location = new System.Drawing.Point(31, 17);
+            this.pnlServer.Location = new System.Drawing.Point(13, 14);
             this.pnlServer.Name = "pnlServer";
             this.pnlServer.Size = new System.Drawing.Size(249, 24);
             this.pnlServer.TabIndex = 31;
@@ -342,40 +321,123 @@
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.lblTextFile);
             this.panel1.Controls.Add(this.txtTextFile);
-            this.panel1.Location = new System.Drawing.Point(31, 50);
+            this.panel1.Location = new System.Drawing.Point(13, 47);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(249, 20);
             this.panel1.TabIndex = 32;
             // 
-            // panel2
+            // grpSceneGraph
             // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.lblSceneGraph);
-            this.panel2.Controls.Add(this.txtSceneGraph);
-            this.panel2.Location = new System.Drawing.Point(31, 82);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(249, 20);
-            this.panel2.TabIndex = 33;
+            this.grpSceneGraph.Controls.Add(this.rdbInstance);
+            this.grpSceneGraph.Controls.Add(this.rdbTemplate);
+            this.grpSceneGraph.Controls.Add(this.rdbLocalSG);
+            this.grpSceneGraph.Controls.Add(this.btnBrowse);
+            this.grpSceneGraph.Controls.Add(this.txtSceneName);
+            this.grpSceneGraph.Location = new System.Drawing.Point(11, 78);
+            this.grpSceneGraph.Name = "grpSceneGraph";
+            this.grpSceneGraph.Size = new System.Drawing.Size(354, 72);
+            this.grpSceneGraph.TabIndex = 86;
+            this.grpSceneGraph.TabStop = false;
+            this.grpSceneGraph.Text = "Scene Graph";
+            // 
+            // rdbInstance
+            // 
+            this.rdbInstance.AutoSize = true;
+            this.rdbInstance.Location = new System.Drawing.Point(165, 22);
+            this.rdbInstance.Name = "rdbInstance";
+            this.rdbInstance.Size = new System.Drawing.Size(66, 17);
+            this.rdbInstance.TabIndex = 9;
+            this.rdbInstance.TabStop = true;
+            this.rdbInstance.Text = "Instance";
+            this.rdbInstance.UseVisualStyleBackColor = true;
+            // 
+            // rdbTemplate
+            // 
+            this.rdbTemplate.AutoSize = true;
+            this.rdbTemplate.Location = new System.Drawing.Point(88, 22);
+            this.rdbTemplate.Name = "rdbTemplate";
+            this.rdbTemplate.Size = new System.Drawing.Size(69, 17);
+            this.rdbTemplate.TabIndex = 8;
+            this.rdbTemplate.TabStop = true;
+            this.rdbTemplate.Text = "Template";
+            this.rdbTemplate.UseVisualStyleBackColor = true;
+            // 
+            // rdbLocalSG
+            // 
+            this.rdbLocalSG.AutoSize = true;
+            this.rdbLocalSG.Location = new System.Drawing.Point(13, 22);
+            this.rdbLocalSG.Name = "rdbLocalSG";
+            this.rdbLocalSG.Size = new System.Drawing.Size(64, 17);
+            this.rdbLocalSG.TabIndex = 7;
+            this.rdbLocalSG.TabStop = true;
+            this.rdbLocalSG.Text = "LocalSg";
+            this.rdbLocalSG.UseVisualStyleBackColor = true;
+            // 
+            // btnBrowse
+            // 
+            this.btnBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBrowse.Location = new System.Drawing.Point(254, 42);
+            this.btnBrowse.Name = "btnBrowse";
+            this.btnBrowse.Size = new System.Drawing.Size(97, 23);
+            this.btnBrowse.TabIndex = 6;
+            this.btnBrowse.Text = "Browse";
+            this.btnBrowse.UseVisualStyleBackColor = true;
+            this.btnBrowse.Click += new System.EventHandler(this.btnBrowse_Click);
+            // 
+            // txtSceneName
+            // 
+            this.txtSceneName.Location = new System.Drawing.Point(13, 45);
+            this.txtSceneName.Name = "txtSceneName";
+            this.txtSceneName.Size = new System.Drawing.Size(238, 20);
+            this.txtSceneName.TabIndex = 5;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.cmbUserTag);
+            this.panel3.Controls.Add(this.lblUserTag);
+            this.panel3.Location = new System.Drawing.Point(125, 156);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(238, 28);
+            this.panel3.TabIndex = 63;
+            // 
+            // cmbUserTag
+            // 
+            this.cmbUserTag.FormattingEnabled = true;
+            this.cmbUserTag.Location = new System.Drawing.Point(122, 3);
+            this.cmbUserTag.Name = "cmbUserTag";
+            this.cmbUserTag.Size = new System.Drawing.Size(110, 21);
+            this.cmbUserTag.TabIndex = 0;
+            // 
+            // lblUserTag
+            // 
+            this.lblUserTag.AutoSize = true;
+            this.lblUserTag.Location = new System.Drawing.Point(7, 7);
+            this.lblUserTag.Name = "lblUserTag";
+            this.lblUserTag.Size = new System.Drawing.Size(109, 13);
+            this.lblUserTag.TabIndex = 3;
+            this.lblUserTag.Text = "Page Control Variable";
             // 
             // Paging
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(536, 359);
-            this.Controls.Add(this.panel2);
+            this.ClientSize = new System.Drawing.Size(513, 370);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.grpSceneGraph);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlServer);
             this.Controls.Add(this.gbDefaultController);
             this.Controls.Add(this.gbController);
             this.Controls.Add(this.gbRenderMode);
-            this.Controls.Add(this.btnScene);
             this.Controls.Add(this.btnTextFile);
             this.Controls.Add(this.btnLoadScene);
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.cbPlayText);
             this.Controls.Add(this.lblPlayText);
+            this.MaximumSize = new System.Drawing.Size(529, 409);
             this.Name = "Paging";
-            this.Text = "Paging";
+            this.ShowIcon = false;
+            this.Text = "Paging Demo";
             this.Load += new System.EventHandler(this.Paging_Load);
             this.gbRenderMode.ResumeLayout(false);
             this.gbDefaultController.ResumeLayout(false);
@@ -384,8 +446,10 @@
             this.pnlServer.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.grpSceneGraph.ResumeLayout(false);
+            this.grpSceneGraph.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -395,11 +459,9 @@
 
         private System.Windows.Forms.Label lblServer;
         private System.Windows.Forms.Label lblTextFile;
-        private System.Windows.Forms.Label lblSceneGraph;
         private System.Windows.Forms.Label lblPlayText;
         //private System.Windows.Forms.TextBox txtServerIp;
         private System.Windows.Forms.TextBox txtTextFile;
-        private System.Windows.Forms.TextBox txtSceneGraph;
         private System.Windows.Forms.CheckBox cbPlayText;
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.Button btnLoadScene;
@@ -407,7 +469,6 @@
         private System.Windows.Forms.Button btnPauseDefaultController;
         private System.Windows.Forms.Button btnStopDefaultController;
         private System.Windows.Forms.Button btnTextFile;
-        private System.Windows.Forms.Button btnScene;
         private System.Windows.Forms.Button btnProgram;
         private System.Windows.Forms.Button btnPreview;
         private System.Windows.Forms.GroupBox gbRenderMode;
@@ -422,8 +483,16 @@
         private System.Windows.Forms.GroupBox gbController;
         private System.Windows.Forms.Panel pnlServer;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ComboBox cmbxServers;
+        private System.Windows.Forms.GroupBox grpSceneGraph;
+        private System.Windows.Forms.RadioButton rdbTemplate;
+        private System.Windows.Forms.RadioButton rdbLocalSG;
+        private System.Windows.Forms.Button btnBrowse;
+        private System.Windows.Forms.TextBox txtSceneName;
+        private System.Windows.Forms.RadioButton rdbInstance;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.ComboBox cmbUserTag;
+        private System.Windows.Forms.Label lblUserTag;
     }
 }
 

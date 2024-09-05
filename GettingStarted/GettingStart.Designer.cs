@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.lblServerIp = new System.Windows.Forms.Label();
-            this.lblSceneName = new System.Windows.Forms.Label();
             this.btnConnect = new System.Windows.Forms.Button();
             this.btnLoadScene = new System.Windows.Forms.Button();
             this.btnFileDialog = new System.Windows.Forms.Button();
@@ -44,34 +43,30 @@
             this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cmbxServers = new System.Windows.Forms.ComboBox();
+            this.grpSceneGraph = new System.Windows.Forms.GroupBox();
+            this.rdbInstance = new System.Windows.Forms.RadioButton();
+            this.rdbTemplate = new System.Windows.Forms.RadioButton();
+            this.rdbLocalSG = new System.Windows.Forms.RadioButton();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.grpSceneGraph.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblServerIp
             // 
             this.lblServerIp.AutoSize = true;
-            this.lblServerIp.Location = new System.Drawing.Point(15, 16);
+            this.lblServerIp.Location = new System.Drawing.Point(18, 12);
             this.lblServerIp.Name = "lblServerIp";
             this.lblServerIp.Size = new System.Drawing.Size(47, 13);
             this.lblServerIp.TabIndex = 0;
             this.lblServerIp.Text = "ServerIp";
             // 
-            // lblSceneName
-            // 
-            this.lblSceneName.AutoSize = true;
-            this.lblSceneName.Location = new System.Drawing.Point(15, 44);
-            this.lblSceneName.Name = "lblSceneName";
-            this.lblSceneName.Size = new System.Drawing.Size(70, 13);
-            this.lblSceneName.TabIndex = 1;
-            this.lblSceneName.Text = "Scene Graph";
-            // 
             // btnConnect
             // 
             this.btnConnect.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConnect.Location = new System.Drawing.Point(312, 16);
+            this.btnConnect.Location = new System.Drawing.Point(272, 12);
             this.btnConnect.Name = "btnConnect";
-            this.btnConnect.Size = new System.Drawing.Size(72, 25);
+            this.btnConnect.Size = new System.Drawing.Size(63, 25);
             this.btnConnect.TabIndex = 2;
             this.btnConnect.Text = "Connect";
             this.btnConnect.UseVisualStyleBackColor = true;
@@ -80,9 +75,9 @@
             // btnLoadScene
             // 
             this.btnLoadScene.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLoadScene.Location = new System.Drawing.Point(392, 16);
+            this.btnLoadScene.Location = new System.Drawing.Point(343, 49);
             this.btnLoadScene.Name = "btnLoadScene";
-            this.btnLoadScene.Size = new System.Drawing.Size(92, 36);
+            this.btnLoadScene.Size = new System.Drawing.Size(79, 66);
             this.btnLoadScene.TabIndex = 4;
             this.btnLoadScene.Text = "LoadScene";
             this.btnLoadScene.UseVisualStyleBackColor = true;
@@ -91,19 +86,19 @@
             // btnFileDialog
             // 
             this.btnFileDialog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFileDialog.Location = new System.Drawing.Point(312, 44);
+            this.btnFileDialog.Location = new System.Drawing.Point(254, 41);
             this.btnFileDialog.Name = "btnFileDialog";
-            this.btnFileDialog.Size = new System.Drawing.Size(72, 26);
+            this.btnFileDialog.Size = new System.Drawing.Size(63, 25);
             this.btnFileDialog.TabIndex = 6;
-            this.btnFileDialog.Text = "...";
+            this.btnFileDialog.Text = "Browse";
             this.btnFileDialog.UseVisualStyleBackColor = true;
             this.btnFileDialog.Click += new System.EventHandler(this.btnFileDialog_Click);
             // 
             // txtSceneName
             // 
-            this.txtSceneName.Location = new System.Drawing.Point(106, 45);
+            this.txtSceneName.Location = new System.Drawing.Point(13, 45);
             this.txtSceneName.Name = "txtSceneName";
-            this.txtSceneName.Size = new System.Drawing.Size(164, 20);
+            this.txtSceneName.Size = new System.Drawing.Size(238, 20);
             this.txtSceneName.TabIndex = 5;
             // 
             // groupBox2
@@ -111,7 +106,7 @@
             this.groupBox2.Controls.Add(this.btnStop);
             this.groupBox2.Controls.Add(this.btnPause);
             this.groupBox2.Controls.Add(this.btnPlay);
-            this.groupBox2.Location = new System.Drawing.Point(12, 83);
+            this.groupBox2.Location = new System.Drawing.Point(18, 122);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(173, 150);
             this.groupBox2.TabIndex = 6;
@@ -156,7 +151,7 @@
             this.btnPreview.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPreview.Location = new System.Drawing.Point(12, 62);
             this.btnPreview.Name = "btnPreview";
-            this.btnPreview.Size = new System.Drawing.Size(153, 29);
+            this.btnPreview.Size = new System.Drawing.Size(119, 29);
             this.btnPreview.TabIndex = 9;
             this.btnPreview.Text = "Preview";
             this.btnPreview.UseVisualStyleBackColor = true;
@@ -167,7 +162,7 @@
             this.btnProgram.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnProgram.Location = new System.Drawing.Point(10, 19);
             this.btnProgram.Name = "btnProgram";
-            this.btnProgram.Size = new System.Drawing.Size(155, 28);
+            this.btnProgram.Size = new System.Drawing.Size(121, 28);
             this.btnProgram.TabIndex = 8;
             this.btnProgram.Text = "Program";
             this.btnProgram.UseVisualStyleBackColor = true;
@@ -185,39 +180,87 @@
             // 
             this.groupBox1.Controls.Add(this.btnProgram);
             this.groupBox1.Controls.Add(this.btnPreview);
-            this.groupBox1.Location = new System.Drawing.Point(211, 83);
+            this.groupBox1.Location = new System.Drawing.Point(199, 122);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(173, 150);
+            this.groupBox1.Size = new System.Drawing.Size(139, 150);
             this.groupBox1.TabIndex = 83;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Render Mode";
             // 
             // cmbxServers
             // 
-            this.cmbxServers.Location = new System.Drawing.Point(106, 12);
+            this.cmbxServers.Location = new System.Drawing.Point(71, 12);
             this.cmbxServers.Name = "cmbxServers";
-            this.cmbxServers.Size = new System.Drawing.Size(163, 21);
+            this.cmbxServers.Size = new System.Drawing.Size(198, 21);
             this.cmbxServers.TabIndex = 84;
+            // 
+            // grpSceneGraph
+            // 
+            this.grpSceneGraph.Controls.Add(this.rdbInstance);
+            this.grpSceneGraph.Controls.Add(this.rdbTemplate);
+            this.grpSceneGraph.Controls.Add(this.rdbLocalSG);
+            this.grpSceneGraph.Controls.Add(this.btnFileDialog);
+            this.grpSceneGraph.Controls.Add(this.txtSceneName);
+            this.grpSceneGraph.Location = new System.Drawing.Point(18, 44);
+            this.grpSceneGraph.Name = "grpSceneGraph";
+            this.grpSceneGraph.Size = new System.Drawing.Size(320, 72);
+            this.grpSceneGraph.TabIndex = 85;
+            this.grpSceneGraph.TabStop = false;
+            this.grpSceneGraph.Text = "Scene Graph";
+            // 
+            // rdbInstance
+            // 
+            this.rdbInstance.AutoSize = true;
+            this.rdbInstance.Location = new System.Drawing.Point(163, 22);
+            this.rdbInstance.Name = "rdbInstance";
+            this.rdbInstance.Size = new System.Drawing.Size(66, 17);
+            this.rdbInstance.TabIndex = 9;
+            this.rdbInstance.TabStop = true;
+            this.rdbInstance.Text = "Instance";
+            this.rdbInstance.UseVisualStyleBackColor = true;
+            // 
+            // rdbTemplate
+            // 
+            this.rdbTemplate.AutoSize = true;
+            this.rdbTemplate.Location = new System.Drawing.Point(88, 22);
+            this.rdbTemplate.Name = "rdbTemplate";
+            this.rdbTemplate.Size = new System.Drawing.Size(69, 17);
+            this.rdbTemplate.TabIndex = 8;
+            this.rdbTemplate.TabStop = true;
+            this.rdbTemplate.Text = "Template";
+            this.rdbTemplate.UseVisualStyleBackColor = true;
+            // 
+            // rdbLocalSG
+            // 
+            this.rdbLocalSG.AutoSize = true;
+            this.rdbLocalSG.Location = new System.Drawing.Point(13, 22);
+            this.rdbLocalSG.Name = "rdbLocalSG";
+            this.rdbLocalSG.Size = new System.Drawing.Size(64, 17);
+            this.rdbLocalSG.TabIndex = 7;
+            this.rdbLocalSG.TabStop = true;
+            this.rdbLocalSG.Text = "LocalSg";
+            this.rdbLocalSG.UseVisualStyleBackColor = true;
             // 
             // GettingStart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 237);
+            this.ClientSize = new System.Drawing.Size(429, 301);
+            this.Controls.Add(this.grpSceneGraph);
             this.Controls.Add(this.cmbxServers);
-            this.Controls.Add(this.txtSceneName);
-            this.Controls.Add(this.lblSceneName);
             this.Controls.Add(this.lblServerIp);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnFileDialog);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.btnConnect);
             this.Controls.Add(this.btnLoadScene);
             this.Name = "GettingStart";
-            this.Text = "GettingStarted";
+            this.ShowIcon = false;
+            this.Text = "Getting Started";
             this.Load += new System.EventHandler(this.GettingStart_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.grpSceneGraph.ResumeLayout(false);
+            this.grpSceneGraph.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,7 +269,6 @@
         #endregion
 
         private System.Windows.Forms.Label lblServerIp;
-        private System.Windows.Forms.Label lblSceneName;
         private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.Button btnLoadScene;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -241,6 +283,10 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox cmbxServers;
+        private System.Windows.Forms.GroupBox grpSceneGraph;
+        private System.Windows.Forms.RadioButton rdbTemplate;
+        private System.Windows.Forms.RadioButton rdbLocalSG;
+        private System.Windows.Forms.RadioButton rdbInstance;
     }
 }
 
