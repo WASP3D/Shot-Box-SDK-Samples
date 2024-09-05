@@ -31,7 +31,7 @@ namespace GettingStarted
         private FileInfo m_fileInfo = null;
         private string m_sLinkType = string.Empty;
 
-        CMosDataEntry _dataEntryControl = null;
+        DataEntryControl _dataEntryControl = null;
         Form _frmTemplatePool = new Form();
         #endregion
 
@@ -139,7 +139,7 @@ namespace GettingStarted
                         //Load template pool and Instance pool
                         if (_dataEntryControl == null)
                         {
-                            _dataEntryControl = new CMosDataEntry();
+                            _dataEntryControl = new DataEntryControl();
                             _dataEntryControl.InitialiseObject("", "", "");
                             _dataEntryControl.HandleInstanceDoubleClick = true;
                             _dataEntryControl.Dock = DockStyle.Fill;

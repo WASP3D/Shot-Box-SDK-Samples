@@ -69,7 +69,6 @@ namespace BeeSys.Wasp3D.Utility
             string sCommonPath = Environment.GetEnvironmentVariable("WaspCommon", EnvironmentVariableTarget.Machine);
 
             var STARTPATH = sCommonPath + "{0}Shared Resources";
-            var LEGACYPATH = sCommonPath + "{0}Shared Resources{0}Legacy";
 
 
             var _64BITPATH = sCommonPath + "{0}Shared Resources{0}X64";
@@ -114,16 +113,7 @@ namespace BeeSys.Wasp3D.Utility
                                                     )
                                     );
 
-            //RESOLVE SHARED RESOURCE LEGACY
-
-            WAssemblyManager.AddPath
-                                    (
-                                        Path.Combine
-                                                    (
-                                                        Application.StartupPath,
-                                                        String.Format(CultureInfo.InvariantCulture, LEGACYPATH, Path.DirectorySeparatorChar)
-                                                    )
-                                    );
+          
 
         }
 

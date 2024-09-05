@@ -38,7 +38,7 @@ namespace PagingApp
         private TagData m_objTagData;
         string _sInstanceDataXml = string.Empty;
         Form _frmTemplatePool = new Form();
-        CMosDataEntry _dataEntryControl = null;
+        DataEntryControl _dataEntryControl = null;
         #endregion
         public Paging()
         {
@@ -583,7 +583,7 @@ namespace PagingApp
                         //Load template pool and Instance pool
                         if (_dataEntryControl == null)
                         {
-                            _dataEntryControl = new CMosDataEntry();
+                            _dataEntryControl = new DataEntryControl();
                             _dataEntryControl.InitialiseObject("", "", "");
                             _dataEntryControl.Dock = DockStyle.Fill;
                             _dataEntryControl.HandleInstanceDoubleClick = true;
@@ -746,7 +746,6 @@ namespace PagingApp
                 if (selectedTag == null)
                     return;
             }
-
             //create TagData structure with value and call update scene graph for udpated data 
             m_objTagData.UserTags = new string[] { selectedTag.Name };
             m_objTagData.Indexes = new string[] { "-1" };

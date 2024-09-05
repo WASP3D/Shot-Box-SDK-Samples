@@ -35,7 +35,7 @@ namespace OnlineUpdate
         private string m_appName = string.Empty;
         string _sInstanceDataXml = string.Empty;
         Form _frmTemplatePool = new Form();
-        CMosDataEntry _dataEntryControl = null;
+        DataEntryControl _dataEntryControl = null;
         #endregion
 
         #region Constructor
@@ -501,7 +501,7 @@ namespace OnlineUpdate
                         //Load template pool and Instance pool
                         if (_dataEntryControl == null)
                         {
-                            _dataEntryControl = new CMosDataEntry();
+                            _dataEntryControl = new DataEntryControl();
                             _dataEntryControl.InitialiseObject("", "", "");
                             _dataEntryControl.HandleInstanceDoubleClick = true;
                             _dataEntryControl.Dock = DockStyle.Fill;
