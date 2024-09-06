@@ -32,8 +32,7 @@ namespace PagingApp
         private bool m_bIsPauseInfinite;
         private bool m_bIsPauseShotBox;
         private string m_sSGvariable;
-        private ArrayList m_objArrayList = null;
-        private string m_sPort = string.Empty;
+        private ArrayList m_objArrayList = null;    
         private int m_iPlayCount;
         private TagData m_objTagData;
         string _sInstanceDataXml = string.Empty;
@@ -317,8 +316,7 @@ namespace PagingApp
         {
             string sLinkID = string.Empty;
             try
-            {
-                m_sPort = ConfigurationManager.AppSettings["port"].ToString();
+            {             
                 m_sLinkType = ConfigurationManager.AppSettings["linktype"].ToString();
                 string kcurl = ConfigurationManager.AppSettings["REMOTEMANAGERURL"].ToString();
                 string appName = ConfigurationManager.AppSettings["appName"].ToString();
@@ -341,6 +339,7 @@ namespace PagingApp
                 }
                 this.FormClosing += new FormClosingEventHandler(Paging_FormClosing);
                 RefreshServersList();
+                rdbLocalSG.Checked = true;
             }
             catch (Exception ex)
             {
@@ -561,7 +560,7 @@ namespace PagingApp
                 if (rdbLocalSG.Checked)
                 {
                     openFileDialog.Filter = "wspx files|*.wspx";
-                    openFileDialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + ConfigurationManager.AppSettings["WSL_PATH"];
+                    //openFileDialog.InitialDirectory = AppDomain.CurrentDomain.BaseDirectory + ConfigurationManager.AppSettings["WSL_PATH"];
                     //if (m_objShotBox == null)
                     {
                         if (Equals(openFileDialog.ShowDialog(), DialogResult.OK))

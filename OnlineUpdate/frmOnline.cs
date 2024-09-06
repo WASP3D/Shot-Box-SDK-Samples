@@ -27,7 +27,6 @@ namespace OnlineUpdate
         private string m_sShotBoxServerIp = string.Empty;
         private string kcurl;
         private string m_sLinkType = string.Empty;
-        private string m_sPort = string.Empty;
         bool m_bIsPause = false;
         private UserTagCollection m_objUserTag;
         private FileInfo m_objFileInfo = null;
@@ -414,7 +413,6 @@ namespace OnlineUpdate
             string sLinkID = string.Empty;
             try
             {
-                m_sPort = ConfigurationManager.AppSettings["port"].ToString();
                 m_sLinkType = ConfigurationManager.AppSettings["linktype"].ToString();
                 kcurl = ConfigurationManager.AppSettings["REMOTEMANAGERURL"].ToString();
                 m_appName = ConfigurationManager.AppSettings["appName"].ToString();
@@ -437,6 +435,7 @@ namespace OnlineUpdate
                 }
                 this.FormClosing += new FormClosingEventHandler(frmOnline_FormClosing);
                 RefreshServersList();
+                rdbLocalSG.Checked = true;
             }
             catch (Exception ex)
             {

@@ -464,6 +464,7 @@ namespace GettingStarted
                     m_objLink.OnEngineConnected += new EventHandler<EngineArgs>(objLink_OnEngineConnected);
                 this.FormClosing += new FormClosingEventHandler(GettingStart_FormClosing);
                 RefreshServersList();
+                rdbLocalSG.Checked = true;
             }
             catch (Exception ex)
             {
