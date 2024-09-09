@@ -69,7 +69,7 @@
     </Reference>
     <Reference Include="BeeSys.Wasp.CommonReference">
       <HintPath>..\Resources\BeeSys.Wasp.CommonReference.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="BeeSys.Wasp.Communicator">
       <HintPath>..\Resources\BeeSys.Wasp.Communicator.dll</HintPath>
@@ -94,10 +94,6 @@
     <Reference Include="GeneralTasks">
       <HintPath>..\Resources\GeneralTasks.dll</HintPath>
       <Private>False</Private>
-    </Reference>
-    <Reference Include="Interop.MSMQ">
-      <HintPath>..\Resources\Interop.MSMQ.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="IWaspWorkFlow">
       <HintPath>..\Resources\IWaspWorkFlow.dll</HintPath>
